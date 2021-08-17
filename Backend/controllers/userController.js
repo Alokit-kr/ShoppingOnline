@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler'
+import generateToken from '../utils/generateToken.js'
 import User from '../Models/userModel.js'
 
 // @desc Authenticate user and get token
@@ -13,7 +14,7 @@ const authUser=asyncHandler(async(req,res)=>{
         name:user.name,
         email:user.email,
         isAdmin:user.isAdmin,
-        token:null
+        token:generateToken(user._id),
     })
  } else{
      res.status(401)
@@ -21,4 +22,13 @@ const authUser=asyncHandler(async(req,res)=>{
  }
 })
 
-export { authUser }
+
+// @desc Get user profile
+// @router GET /api/users/profile
+// @access Private
+const getUserProfile=asyncHandler(async(req,res)=>{
+     res.send('Success')
+    
+   })
+   
+export { authUser ,getUserProfile}
