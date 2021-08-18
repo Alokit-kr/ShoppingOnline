@@ -1,11 +1,11 @@
 import express from 'express'
-// import asyncHandler from 'express-async-handler'
 const router=express.Router()
-import {authUser,getUserProfile} from '../controllers/userController.js'
-import {getProducts,getProductById} from '../controllers/productController.js'
+import {authUser , registerUser , getUserProfile} from '../controllers/userController.js'
+import { protect } from '../middleware/authMiddleware.js'
 
+router.route('/').post(registerUser)
 router.post('/login',authUser)
-router.route('/profile').get(getUserProfile)
+router.route('/profile').get(protect,getUserProfile)
 
 
 export default router
